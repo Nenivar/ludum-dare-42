@@ -1,8 +1,9 @@
 const { expect } = require("chai");
-const { compose } = require("ramda");
+const { compose, pipe } = require("ramda");
 const {
     GameState, pause, resume, setIsPaused, setLevel, goToMenu, isGameOver,
-    updateLevelState, getLevel, setLevelIndex, getLevelIndex
+    updateLevelState, getLevel, setLevelIndex, getLevelIndex, startLevel,
+    nextLevel
 } = require("../src/GameState");
 const { setStartTime } = require("../src/LevelState");
 
@@ -62,7 +63,7 @@ describe("GameState", () => {
 
         context("level where the time limit hasn't exceeded", () => {
             const time = 1002;
-            const state = compose(
+            const state = pipe(
                 setLevel({
                     timeLimit: 5
                 }),
@@ -77,7 +78,7 @@ describe("GameState", () => {
 
         context("level where the time limit has exceeded", () => {
             const time = 1007;
-            const state = compose(
+            const state = pipe(
                 setLevel({
                     timeLimit: 5
                 }),
@@ -87,6 +88,59 @@ describe("GameState", () => {
 
             it("returns true", () => {
                 expect(result).to.be.true;
+            });
+        });
+    });
+
+    describe(".startLevel()", () => {
+        context("level index 1", () => {
+            const level = "dummy";
+            const levelIndex = 1;
+            const result = startLevel(level, levelIndex)(GameState).toObject();
+
+            it("sets the level index to 1", () => {
+                expect(result.levelIndex).to.equal(levelIndex);
+            });
+
+            it("sets the level to dummy", () => {
+                expect(result.level).to.equal(level);
+            });
+        });
+    });
+
+    describe(".nextLevel()", () => {
+        const levels = ["dummy", "dummy-2", "dummy-3"];
+
+        context("default -1, level 0 exists", () => {
+            const result = nextLevel(levels)(GameState).toObject();
+
+            it("sets levelIndex to 0", () => {
+                expect(result.levelIndex).to.equal(0);
+            });
+
+            it("sets the level to dummy", () => {
+                expect(result.level).to.equal("dummy");
+            });
+        });
+
+        context("level is last", () => {
+            const state = pipe(
+                setLevelIndex(2),
+                startLevel(levels[2], 2)
+            )(GameState);
+
+            const result = nextLevel(levels)(state).toObject();
+
+            it("sets levelIndex to -1", () => {
+                expect(result.levelIndex).to.equal(-1);
+            });
+
+            it("sets level to null", () => {
+                expect(result.level).to.be.null;
+            });
+
+            it("sets is complete to true", () => {
+                expect(result.isCompleted).to.be.true;
             });
         });
     });
