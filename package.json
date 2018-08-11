@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/Nenivar/ludum-dare-42#readme",
   "dependencies": {
-    "@pixi/core": "^5.0.0-alpha.3",
     "immutable": "^3.8.2",
     "ramda": "^0.25.0",
     "rxjs": "^6.2.2"
