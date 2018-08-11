@@ -1,0 +1,23 @@
+[
+    {
+        "capacity": 10,
+        "timeLimit": 30000,
+        "ingredients": ["mushroom", "onion", "carrot", "mushroom"],
+        "bmp": 60
+    },
+    {
+        "capacity": 7,
+        "timeLimit": 20000,
+        "ingredients": ["onion", "onion", "onion", "carrot", "carrot"],
+        "bmp": 40
+    },
+    {
+        "capacity": 7,
+        "timeLimit": 10000,
+        "ingredients": [
+            "mushroom", "mushroom", "mushroom", "mushroom", "onion", "onion",
+            "onion"
+        ],
+        "bmp": 30
+    }
+]
