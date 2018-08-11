@@ -28,8 +28,15 @@ function setup () {
         let sprite = getIngredientSprite(x.name);
         sprite.x = 100;
         sprite.y = 100;
+        sprite.interactive = true;
+        sprite.buttonMode = true;
+        sprite.on('click', function(event) {
+            console.log(event.type, event.target);
+        });
         cont.addChild(sprite);
     }
+
+    
 
     return cont;
 }
@@ -39,4 +46,3 @@ export function getContainerForLevel () {
     
     return cont;
 }
-

@@ -26,9 +26,20 @@ function setup () {
     return cont;
 }
 
-function getTitleSprite () { return getGUISprite("menu_title"); }
+function getTitleSprite () {
+    return getGUISprite("menu_title");
+}
 
-function getPlaySprite () { return getGUISprite("menu_play"); }
+function getPlaySprite () {
+    let sp = getGUISprite("menu_play");
+    sp.interactive = true;
+    sp.buttonMode = true;
+
+    sp.on('click', function () {
+        console.log("play game!!");
+    });
+    return sp;
+}
 
 export function getContainerForMenu () {
     if (cont == null) cont = setup();
