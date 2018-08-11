@@ -24,8 +24,8 @@ export function init () {
     SS_GUI = resources[SS_GUI_LOC];
 }
 
-export function getIngredientSprite (ingredient) {
-    return new Sprite(SS_ING.textures[ingredient.name + ".png"]);
+export function getIngredientSprite (name) {
+    return new Sprite(SS_ING.textures[name + ".png"]);
 }
 
 export function getGUISprite (name) {

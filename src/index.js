@@ -2,11 +2,10 @@
  * https://github.com/kittykatattack/learningPixi
  */
 
-//import { level } from './level_state_display';
-import { getContainerForMenu } from './menu_display';
-
-import { getGUISprite, getIngredientSprite, init } from './textures';
 import { inherits } from 'util';
+import { getGUISprite, getIngredientSprite, init } from './textures';
+import { getContainerForLevel } from './level_state_display';
+import { getContainerForMenu } from './menu_display';
 
 // load in sprites -> spritesheet
 /*var spritesheet = require('spritesheet-js');
@@ -46,7 +45,6 @@ PIXI.loader.load(setup);
     DO STUFF
 */
 let state;
-let onion;
 
 // init
 function setup () {
@@ -54,16 +52,15 @@ function setup () {
         "name": "onion",
         "chopPattern": [2, 1, 1, 2]
     };
-    onion = getIngredientSprite(fakeIngredientData);
+    let onion = getIngredientSprite(fakeIngredientData.name);
     onion.x = 30;
     onion.y = 30;
 
     let menu = getContainerForMenu();
     app.stage.addChild(menu);
 
-    let dog = new Container();
-    dog.addChild(onion);
-    app.stage.addChild(dog);
+    let level = getContainerForLevel();
+    app.stage.addChild(level);
 
     state = play;
 
@@ -79,7 +76,7 @@ function gameLoop (delta) {
 // all game logic here
 function play (delta) {
     //onion.vx = 1;
-    onion.x += 1;
+    /* onion.x += 1; */
 }
 
 // all code to run @ end of game

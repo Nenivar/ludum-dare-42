@@ -11,31 +11,27 @@ let loader = PIXI.loader,
 *   has container with menu elements
 */
 
-let menu;
+let cont;
 let img_title, button_play;
 
 function setup () {
-    menu = new Container();
+    cont = new Container();
 
     img_title = getTitleSprite();
     button_play = getPlaySprite();
 
-    menu.addChild(img_title);
-    menu.addChild(button_play);
+    cont.addChild(img_title);
+    cont.addChild(button_play);
 
-    return menu;
+    return cont;
 }
 
-function getTitleSprite () {
-    return getGUISprite("menu_title");
-}
+function getTitleSprite () { return getGUISprite("menu_title"); }
 
-function getPlaySprite () {
-    return getGUISprite("menu_play");
-}
+function getPlaySprite () { return getGUISprite("menu_play"); }
 
 export function getContainerForMenu () {
-    if (menu == null) menu = setup();
+    if (cont == null) cont = setup();
     
-    return menu;
+    return cont;
 }
