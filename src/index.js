@@ -1,16 +1,55 @@
-const app = new PIXI.Application(800, 600, { antialias: true });
+/* lots of code taken from
+ * https://github.com/kittykatattack/learningPixi
+ */
+
+// load in sprites -> spritesheet
+/*var spritesheet = require('spritesheet-js');
+spritesheet('assets/*.png', {format: 'pixi.js'}, function (err) {
+    if (err) throw err;
+    console.log('spritesheet successfully generated');
+});*/
+
+/*
+    SETUP
+*/
+let Application = PIXI.Application,
+    loader = PIXI.loader,
+    resources = PIXI.resources,
+    Sprite = PIXI.Sprite;
+
+let app = new Application({
+    width: 800,
+    height: 600,
+    antialias: true,
+    transparent: false,
+    resolution: 1
+});
 
 document.body.appendChild(app.view);
 
-const graphics = new PIXI.Graphics();
+/*
+    TEXTURES
+*/
+loader
+    .add("assets/spritesheet.json")
+    .load(setup);
 
-graphics.beginFill(0xFF3300);
-graphics.lineStyle(4, 0xFFD900, 1);
+// runs when image loaded
+function setup () {
+    let fakeIngredientData = {
+        "name": "onion",
+        "chopPattern": [2, 1, 1, 2]
+    };
+    let onion = getIngredientSprite(fakeIngredientData);
+    onion.x = 30;
+    onion.y = 30;
 
-graphics.moveTo(50, 50);
-graphics.lineTo(250, 50);
-graphics.lineTo(100, 100);
-graphics.lineTo(50, 50);
-graphics.endFill();
+    app.stage.addChild(onion);
+}
 
-app.stage.addChild(graphics);
+const SPRITESHEET_LOC = "assets/spritesheet.json";
+const SPRITESHEET = loader.resources[SPRITESHEET_LOC];
+
+function getIngredientSprite (ingredient) {
+    return new Sprite(SPRITESHEET.textures[ingredient.name + ".png"]);
+}

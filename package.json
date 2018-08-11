@@ -20,7 +20,8 @@
   "dependencies": {
     "immutable": "^3.8.2",
     "ramda": "^0.25.0",
-    "rxjs": "^6.2.2"
+    "rxjs": "^6.2.2",
+    "spritesheet-js": "^1.2.6"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
