@@ -2,6 +2,12 @@
  * https://github.com/kittykatattack/learningPixi
  */
 
+//import { level } from './level_state_display';
+import { getContainerForMenu } from './menu_display';
+
+import { getGUISprite, getIngredientSprite, init } from './textures';
+import { inherits } from 'util';
+
 // load in sprites -> spritesheet
 /*var spritesheet = require('spritesheet-js');
 spritesheet('assets/*.png', {format: 'pixi.js'}, function (err) {
@@ -17,6 +23,8 @@ let Application = PIXI.Application,
     resources = PIXI.resources,
     Sprite = PIXI.Sprite;
 
+let Container = PIXI.Container;
+
 let app = new Application({
     width: 800,
     height: 600,
@@ -30,26 +38,51 @@ document.body.appendChild(app.view);
 /*
     TEXTURES
 */
-loader
-    .add("assets/spritesheet.json")
-    .load(setup);
 
-// runs when image loaded
+init();
+PIXI.loader.load(setup);
+
+/*
+    DO STUFF
+*/
+let state;
+let onion;
+
+// init
 function setup () {
     let fakeIngredientData = {
         "name": "onion",
         "chopPattern": [2, 1, 1, 2]
     };
-    let onion = getIngredientSprite(fakeIngredientData);
+    onion = getIngredientSprite(fakeIngredientData);
     onion.x = 30;
     onion.y = 30;
 
-    app.stage.addChild(onion);
+    let menu = getContainerForMenu();
+    app.stage.addChild(menu);
+
+    let dog = new Container();
+    dog.addChild(onion);
+    app.stage.addChild(dog);
+
+    state = play;
+
+    app.ticker.add(delta => gameLoop(delta));
 }
 
-const SPRITESHEET_LOC = "assets/spritesheet.json";
-const SPRITESHEET = loader.resources[SPRITESHEET_LOC];
+// run game current state in loop
+// & render sprites
+function gameLoop (delta) {
+    state(delta);
+}
 
-function getIngredientSprite (ingredient) {
-    return new Sprite(SPRITESHEET.textures[ingredient.name + ".png"]);
+// all game logic here
+function play (delta) {
+    //onion.vx = 1;
+    onion.x += 1;
+}
+
+// all code to run @ end of game
+function end (delta) {
+
 }
