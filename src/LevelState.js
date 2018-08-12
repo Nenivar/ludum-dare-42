@@ -8,7 +8,8 @@ const LevelState = Map({
     ingredientBeingChopped: null,
     stepsThrough: 0,
     lastChopTime: 0,
-    startTime: 0
+    startTime: 0,
+    isGameOver: false
 });
 
 const getBeatsMissed            = get("beatsMissed");
@@ -20,17 +21,18 @@ const getIngredientBeingChopped = get("ingredientBeingChopped");
 const setIngredientBeingChopped = set("ingredientBeingChopped");
 const getStepsThrough           = get("stepsThrough");
 const setStepsThrough           = set("stepsThrough");
+const getLastChopTime           = get("lastChopTime");
 const setLastChopTime           = set("lastChopTime");
 const getStartTime              = get("startTime");
 const setStartTime              = set("startTime");
+const getIsGameOver             = get("isGameOver");
+const setIsGameOver             = set("isGameOver");
 
 const missedABeat = updateBeatsMissed(inc);
 
 const addIngredient = compose(updateIngredientsOnBench, append);
 
 const removeNextFromBench = compose(updateIngredientsOnBench, drop)(1);
-
-const nextOnBench = getIngredientsOnBench
 
 const moveNextOnChoppingBoard = compose(
     removeNextFromBench,
@@ -42,9 +44,14 @@ const moveNextOnChoppingBoard = compose(
     }
 );
 
+const chop = time => levelState => {
+    return setIsGameOver(true)(levelState);
+};
+
 module.exports = {
     LevelState, missedABeat, getBeatsMissed, addIngredient,
     getIngredientsOnBench, removeNextFromBench, moveNextOnChoppingBoard,
     getIngredientBeingChopped, getStepsThrough, setStepsThrough, setStartTime,
-    getStartTime
+    getStartTime, chop, getIsGameOver, setIsGameOver, setLastChopTime,
+    getLastChopTime
 };

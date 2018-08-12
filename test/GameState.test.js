@@ -3,7 +3,7 @@ const { compose, pipe } = require("ramda");
 const {
     GameState, pause, resume, setIsPaused, setLevel, goToMenu, isGameOver,
     updateLevelState, getLevel, setLevelIndex, getLevelIndex, startLevel,
-    nextLevel
+    nextLevel, timeAllowed
 } = require("../src/GameState");
 const { setStartTime } = require("../src/LevelState");
 
@@ -141,6 +141,40 @@ describe("GameState", () => {
 
             it("sets is complete to true", () => {
                 expect(result.isCompleted).to.be.true;
+            });
+        });
+    });
+
+    describe(".timeAllowed", () => {
+        context("level is null", () => {
+            const result = timeAllowed(GameState);
+
+            it("returns 0", () => {
+                expect(result).to.equal(0);
+            });
+        });
+
+        context("level is 60 bpm", () => {
+            const state = setLevel({
+                bpm: 60
+            })(GameState);
+
+            const result = timeAllowed(state);
+
+            it("returns 1000", () => {
+                expect(result).to.equal(1000);
+            });
+        });
+
+        context("level is 30 bpm", () => {
+            const state = setLevel({
+                bpm: 30
+            })(GameState);
+
+            const result = timeAllowed(state);
+
+            it("returns 2000", () => {
+                expect(result).to.equal(2000);
             });
         });
     });

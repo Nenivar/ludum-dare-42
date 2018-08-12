@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const {
     LevelState, missedABeat, getBeatsMissed, addIngredient,
     getIngredientsOnBench, removeNextFromBench, moveNextOnChoppingBoard,
-    getIngredientBeingChopped, getStepsThrough, setStepsThrough
+    getIngredientBeingChopped, getStepsThrough, setStepsThrough, chop
 } = require("../src/LevelState");
 const { pipe } = require("ramda");
 

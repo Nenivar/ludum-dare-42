@@ -24,6 +24,7 @@ const updateLevelState = update("levelState");
 const updateLevelIndex = update("levelIndex");
 const getIsCompleted   = get("isCompleted");
 const setIsCompleted   = set("isCompleted");
+const setLevelState    = set("levelState");
 
 const pause    = setIsPaused(true);
 const resume   = setIsPaused(false);
@@ -62,8 +63,16 @@ const nextLevel = levels => pipe(
     }
 );
 
+const timeAllowed = gameState => {
+    if (isNil(getLevel(gameState))) {
+        return 0;
+    }
+
+    return 60000 / getLevel(gameState).bpm;
+};
+
 module.exports = {
     GameState, pause, resume, setIsPaused, setLevel, goToMenu, isGameOver,
     updateLevelState, getLevel, getLevelIndex, setLevelIndex, startLevel,
-    nextLevel, getIsPaused, getIsMenu, getIsCompleted
+    nextLevel, getIsPaused, getIsMenu, getIsCompleted, setLevelState, timeAllowed
 };
