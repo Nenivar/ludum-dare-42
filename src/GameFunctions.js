@@ -9,6 +9,7 @@ const chop = (time, chopType) => gameState => (
     updateLevelState(levelState => {
         const lastChopTime = getLastChopTime(levelState);
         const threshold = 150;
+        const stepsThrough = levelState.get("stepsThrough");
 
         if (isNil(getIngredientBeingChopped(levelState))) {
             return setIsGameOver(true)(levelState);

@@ -21,13 +21,8 @@ describe("GameFunctions", () => {
         });
 
         context("it's on the time", () => {
-            const levelState = Map({
-                startTime: 0,
-                lastChopTime: 0,
-                levelState: LevelState,
-                ingredientBeingChopped: mushroom,
-                isGameOver: false
-            });
+            const levelState = LevelState
+                .set("ingredientBeingChopped", mushroom);
 
             const state = pipe(
                 setLevelState(levelState),
@@ -52,13 +47,8 @@ describe("GameFunctions", () => {
         });
 
         context("it's before the time", () => {
-            const levelState = Map({
-                startTime: 0,
-                lastChopTime: 0,
-                levelState: LevelState,
-                ingredientBeingChopped: mushroom,
-                isGameOver: false
-            });
+            const levelState = LevelState
+                .set("ingredientBeingChopped", mushroom);
 
             const state = pipe(
                 setLevelState(levelState),
@@ -75,13 +65,8 @@ describe("GameFunctions", () => {
         });
 
         context("it's after the time", () => {
-            const levelState = Map({
-                startTime: 0,
-                lastChopTime: 0,
-                levelState: LevelState,
-                ingredientBeingChopped: mushroom,
-                isGameOver: false
-            });
+            const levelState = LevelState
+                .set("ingredientBeingChopped", mushroom);
 
             const state = pipe(
                 setLevelState(levelState),
@@ -91,6 +76,24 @@ describe("GameFunctions", () => {
             )(GameState);
 
             const result = chop(1200)(state).toJS();
+
+            it("sets isGameOver to true", () => {
+                expect(result.levelState.isGameOver).to.be.true;
+            });
+        });
+
+        context("it's the wrong chop type", () => {
+            const levelState = LevelState
+                .set("ingredientBeingChopped", mushroom);
+
+            const state = pipe(
+                setLevelState(levelState),
+                setLevel({
+                    bpm: 60
+                })
+            )(GameState);
+
+            const result = chop(1200, 2)(state).toJS();
 
             it("sets isGameOver to true", () => {
                 expect(result.levelState.isGameOver).to.be.true;
