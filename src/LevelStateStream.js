@@ -1,8 +1,7 @@
-const { LevelState } = require("./LevelState");
-const { scan } = require("rxjs/operators");
+import { LevelState } from "./LevelState";
+import { scan } from "rxjs/operators";
+import { initialGameState } from "./GameStateStream";
 
-const scanLevelState = scan((levelState, f) => f(levelState), LevelState);
-
-module.exports = {
-    scanLevelState
-};
+export const onChop = initialGameState.pipe(
+    
+);

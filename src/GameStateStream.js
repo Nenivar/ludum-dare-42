@@ -12,7 +12,7 @@ export const gameStateStream = new Subject().pipe(
     share()
 );
 
-const initialGameState = merge(gameStateStream, of(GameState));
+export const initialGameState = merge(gameStateStream, of(GameState));
 
 export const onStartLevel = initialGameState.pipe(
     distinct(getLevelIndex),
