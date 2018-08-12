@@ -1,0 +1,25 @@
+{
+	"meta": {
+		"image": "spritesheet_bg.png",
+		"size": {"w":96,"h":96},
+		"scale": "1"
+	},
+	"frames": {
+		"rock.png":
+		{
+			"frame": {"x":0,"y":0,"w":44,"h":19},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":44,"h":19},
+            "sourceSize": {"w":44,"h":19}
+		},
+		"log.png":
+		{
+			"frame": {"x":44,"y":0,"w":22,"h":27},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":44,"y":0,"w":22,"h":27},
+            "sourceSize": {"w":22,"h":27}
+		}
+    }
+}

@@ -3,14 +3,16 @@
  */
 
 import { inherits } from 'util';
-import { getGUISprite, getIngredientSprite, init } from './textures';
-import { getContainerForLevel } from './level_state_display';
-import { getContainerForMenu } from './menu_display';
+import { getGUISprite, getIngredientSprite, init } from './frontend/textures';
+import { getContainerMenu } from './frontend/container_menu';
+import { switchLevel } from './frontend/level_manager';
+import levels from './levels.json';
 
 import {
     gameStateStream, onStartLevel, onPause, onReturnToMenu, onResume
 } from './GameStateStream';
 import { Subject } from 'rxjs';
+import { getContainerLevel } from './frontend/container_level';
 
 gameStateStream.subscribe(gameState => {
     console.log("GAME STATE CHANGED", gameState.toJS());
@@ -59,6 +61,12 @@ init();
 PIXI.loader.load(setup);
 
 /*
+    RXJS
+*/
+
+onStartLevel.subscribe(x => switchLevel(app, x.toJS().level));
+
+/*
     DO STUFF
 */
 let state;
@@ -70,17 +78,10 @@ function setup () {
         "chopPattern": [2, 1, 1, 2]
     };
     let onion = getIngredientSprite(fakeIngredientData.name);
-    onion.x = 30;
-    onion.y = 30;
 
-    let menu = getContainerForMenu();
-    app.stage.addChild(menu);
-
-    let level = getContainerForLevel(gameStateStream);
-    app.stage.addChild(level);
+    app.stage = getContainerMenu();
 
     state = play;
-
     app.ticker.add(delta => gameLoop(delta));
 }
 

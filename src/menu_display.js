@@ -1,4 +1,5 @@
 import { getGUISprite } from './textures';
+import { switchLevel } from './level_manager';
 
 // shorthands for PIXI var.
 let loader = PIXI.loader,
@@ -37,6 +38,7 @@ function getPlaySprite () {
 
     sp.on('click', function () {
         console.log("play game!!");
+        switchLevel (1);
     });
     return sp;
 }

@@ -12,6 +12,30 @@
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":12,"h":12},
             "sourceSize": {"w":12,"h":12}
+		},
+		"carrot.png":
+		{
+			"frame": {"x":12,"y":0,"w":12,"h":12},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":12,"y":0,"w":12,"h":12},
+            "sourceSize": {"w":12,"h":12}
+		},
+		"tomato.png":
+		{
+			"frame": {"x":24,"y":0,"w":12,"h":12},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":24,"y":0,"w":12,"h":12},
+            "sourceSize": {"w":12,"h":12}
+		},
+		"mushroom.png":
+		{
+			"frame": {"x":36,"y":0,"w":12,"h":12},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":36,"y":0,"w":12,"h":12},
+            "sourceSize": {"w":12,"h":12}
         }
     }
 }

@@ -1,5 +1,9 @@
 import { getGUISprite, getIngredientSprite } from './textures';
-import { pause } from "./GameState";
+import { pause, returnToMenu } from "./GameState";
+
+import {
+    goToMenu
+} from './GameState';
 
 // shorthands for PIXI var.
 let loader = PIXI.loader,
@@ -32,8 +36,9 @@ function setup (subject) {
         sprite.interactive = true;
         sprite.buttonMode = true;
         sprite.on('click', event => {
-            subject.next(pause);
-            console.log(event.type, event.target);
+            subject.next(goToMenu);
+            //console.log(event.type, event.target);
+            
         });
         cont.addChild(sprite);
     }
