@@ -16,10 +16,13 @@ const setLevel         = set("level");
 const getLevel         = get("level");
 const setLevelIndex    = set("levelIndex");
 const getLevelIndex    = get("levelIndex");
+const getIsMenu        = get("isMenu");
+const getIsPaused      = get("isPaused");
 const setIsPaused      = set("isPaused");
 const getLevelState    = get("levelState");
 const updateLevelState = update("levelState");
 const updateLevelIndex = update("levelIndex");
+const getIsCompleted   = get("isCompleted");
 const setIsCompleted   = set("isCompleted");
 
 const pause    = setIsPaused(true);
@@ -62,5 +65,5 @@ const nextLevel = levels => pipe(
 module.exports = {
     GameState, pause, resume, setIsPaused, setLevel, goToMenu, isGameOver,
     updateLevelState, getLevel, getLevelIndex, setLevelIndex, startLevel,
-    nextLevel
+    nextLevel, getIsPaused, getIsMenu, getIsCompleted
 };

@@ -7,18 +7,22 @@ import { getGUISprite, getIngredientSprite, init } from './textures';
 import { getContainerForLevel } from './level_state_display';
 import { getContainerForMenu } from './menu_display';
 
-import { Observable, Subject } from 'rxjs';
-import { scanGameState, mapStartLevel } from './GameStateStream';
+import {
+    gameStateStream, onStartLevel, onPause, onReturnToMenu, onResume
+} from './GameStateStream';
+import { Subject } from 'rxjs';
 
-let subject = new Subject().pipe(scanGameState);
-let subjectStartLevel = subject.pipe(mapStartLevel);
+gameStateStream.subscribe(gameState => {
+    console.log("GAME STATE CHANGED", gameState.toJS());
+});
 
-subject.subscribe(gameState => {
-    console.log(gameState.toJS());
+onStartLevel.subscribe(gameState => {
+    console.log("STARTED LEVEL", gameState.toJS());
 });
-subjectStartLevel.subscribe(gameState => {
-    console.log(gameState.toJS());
-});
+
+onResume.subscribe(() => console.log("RESUME"));
+onPause.subscribe(() => console.log("PAUSED"));
+onReturnToMenu.subscribe(() => console.log("RETURNED TO MENU"));
 
 // load in sprites -> spritesheet
 /*var spritesheet = require('spritesheet-js');
@@ -72,7 +76,7 @@ function setup () {
     let menu = getContainerForMenu();
     app.stage.addChild(menu);
 
-    let level = getContainerForLevel(subject);
+    let level = getContainerForLevel(gameStateStream);
     app.stage.addChild(level);
 
     state = play;
