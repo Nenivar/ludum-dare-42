@@ -44,14 +44,10 @@ const moveNextOnChoppingBoard = compose(
     }
 );
 
-const chop = time => levelState => {
-    return setIsGameOver(true)(levelState);
-};
-
 module.exports = {
     LevelState, missedABeat, getBeatsMissed, addIngredient,
     getIngredientsOnBench, removeNextFromBench, moveNextOnChoppingBoard,
     getIngredientBeingChopped, getStepsThrough, setStepsThrough, setStartTime,
-    getStartTime, chop, getIsGameOver, setIsGameOver, setLastChopTime,
+    getStartTime, getIsGameOver, setIsGameOver, setLastChopTime,
     getLastChopTime, setIngredientBeingChopped
 };
