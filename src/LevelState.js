@@ -53,5 +53,5 @@ module.exports = {
     getIngredientsOnBench, removeNextFromBench, moveNextOnChoppingBoard,
     getIngredientBeingChopped, getStepsThrough, setStepsThrough, setStartTime,
     getStartTime, chop, getIsGameOver, setIsGameOver, setLastChopTime,
-    getLastChopTime
+    getLastChopTime, setIngredientBeingChopped
 };
