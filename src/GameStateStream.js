@@ -8,5 +8,6 @@ const mapStartLevel = distinctUntilChanged((p, q) => (
 ));
 
 module.exports = {
-    scanGameState
+    scanGameState,
+    mapStartLevel
 };

@@ -8,11 +8,15 @@ import { getContainerForLevel } from './level_state_display';
 import { getContainerForMenu } from './menu_display';
 
 import { Observable, Subject } from 'rxjs';
-import { scanGameState } from './GameStateStream';
+import { scanGameState, mapStartLevel } from './GameStateStream';
 
 let subject = new Subject().pipe(scanGameState);
+let subjectStartLevel = subject.pipe(mapStartLevel);
 
 subject.subscribe(gameState => {
+    console.log(gameState.toJS());
+});
+subjectStartLevel.subscribe(gameState => {
     console.log(gameState.toJS());
 });
 
