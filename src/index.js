@@ -7,6 +7,15 @@ import { getGUISprite, getIngredientSprite, init } from './textures';
 import { getContainerForLevel } from './level_state_display';
 import { getContainerForMenu } from './menu_display';
 
+import { Observable, Subject } from 'rxjs';
+import { scanGameState } from './GameStateStream';
+
+let subject = new Subject().pipe(scanGameState);
+
+subject.subscribe(gameState => {
+    console.log(gameState.toJS());
+});
+
 // load in sprites -> spritesheet
 /*var spritesheet = require('spritesheet-js');
 spritesheet('assets/*.png', {format: 'pixi.js'}, function (err) {
@@ -59,7 +68,7 @@ function setup () {
     let menu = getContainerForMenu();
     app.stage.addChild(menu);
 
-    let level = getContainerForLevel();
+    let level = getContainerForLevel(subject);
     app.stage.addChild(level);
 
     state = play;

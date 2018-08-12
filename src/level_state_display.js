@@ -1,4 +1,5 @@
 import { getGUISprite, getIngredientSprite } from './textures';
+import { pause } from "./GameState";
 
 // shorthands for PIXI var.
 let loader = PIXI.loader,
@@ -14,7 +15,7 @@ let loader = PIXI.loader,
 let cont;
 let ingredients = [];
 
-function setup () {
+function setup (subject) {
     cont = new Container();
 
     let fakeIngredientData = {
@@ -30,7 +31,8 @@ function setup () {
         sprite.y = 100;
         sprite.interactive = true;
         sprite.buttonMode = true;
-        sprite.on('click', function(event) {
+        sprite.on('click', event => {
+            subject.next(pause);
             console.log(event.type, event.target);
         });
         cont.addChild(sprite);
@@ -41,8 +43,8 @@ function setup () {
     return cont;
 }
 
-export function getContainerForLevel () {
-    if (cont == null) cont = setup();
+export function getContainerForLevel (subject) {
+    if (cont == null) cont = setup(subject);
     
     return cont;
 }
