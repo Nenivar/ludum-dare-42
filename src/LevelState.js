@@ -30,8 +30,6 @@ const addIngredient = compose(updateIngredientsOnBench, append);
 
 const removeNextFromBench = compose(updateIngredientsOnBench, drop)(1);
 
-const nextOnBench = getIngredientsOnBench
-
 const moveNextOnChoppingBoard = compose(
     removeNextFromBench,
     setStepsThrough(0),

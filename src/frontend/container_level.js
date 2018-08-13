@@ -9,6 +9,8 @@ let Container = PIXI.Container;
 *   [level.js]
 */
 
+
+
 export function getContainerLevel (jsonData) {
     let cont = new Container();
     cont.addChild(getContainerBg(jsonData),

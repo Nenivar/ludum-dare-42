@@ -1,6 +1,9 @@
 import {
-    GameState, getLevel, getLevelIndex, getIsPaused, getIsMenu, getIsCompleted
+    GameState, getLevel, getLevelIndex, getLevelState, getIsPaused, getIsMenu, getIsCompleted
 } from "./GameState";
+import {
+    getIngredientBeingChopped
+} from "./LevelState";
 import { Subject, of, merge } from "rxjs";
 import {
     scan, level, map, filter, tap, share, distinct, skip, distinctUntilChanged
@@ -15,7 +18,11 @@ export const gameStateStream = new Subject().pipe(
 const initialGameState = merge(gameStateStream, of(GameState));
 
 export const onStartLevel = initialGameState.pipe(
-    distinct(getLevelIndex),
+    distinctUntilChanged((p, q) => {
+        console.log(p, q);
+
+        return q === -1 || p === q;
+    }, getLevelIndex),
     skip(1)
 );
 
@@ -31,10 +38,18 @@ export const onResume = initialGameState.pipe(
 );
 
 export const onReturnToMenu = initialGameState.pipe(
-    distinct(getIsMenu),
+    filter(getIsMenu),
     skip(1)
 );
 
 export const onGameComplete = initialGameState.pipe(
     distinct(getIsCompleted)
 );
+
+//export const onUnsuccessfulChop
+/* export const onSuccessfulChop = initialGameState.pipe(
+    map(getLevelState),
+    distinctUntilChanged((p, q) => {
+        return p < q;
+    }, getIngredientBeingChopped)
+); */

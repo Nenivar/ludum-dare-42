@@ -17,6 +17,7 @@ const getLevel         = get("level");
 const setLevelIndex    = set("levelIndex");
 const getLevelIndex    = get("levelIndex");
 const getIsMenu        = get("isMenu");
+const setIsMenu        = set("isMenu");
 const getIsPaused      = get("isPaused");
 const setIsPaused      = set("isPaused");
 const getLevelState    = get("levelState");
@@ -31,6 +32,7 @@ const resume   = setIsPaused(false);
 const goToMenu = pipe(
     setLevel(null),
     setLevelIndex(-1),
+    setIsMenu(true),
     resume
 );
 
@@ -46,6 +48,7 @@ const startLevel = (level, levelIndex) => pipe(
 
 const nextLevel = levels => pipe(
     updateLevelIndex(inc),
+    setIsMenu(false),
     state => {
         const levelIndex = getLevelIndex(state);
         const level = levels[levelIndex];

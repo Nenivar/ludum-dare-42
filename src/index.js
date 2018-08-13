@@ -5,7 +5,7 @@
 import { inherits } from 'util';
 import { getGUISprite, getIngredientSprite, init } from './frontend/textures';
 import { getContainerMenu } from './frontend/container_menu';
-import { switchLevel } from './frontend/level_manager';
+import { switchLevel, switchLevelContainer } from './frontend/level_manager';
 import levels from './levels.json';
 
 import {
@@ -41,6 +41,8 @@ let Application = PIXI.Application,
     resources = PIXI.resources,
     Sprite = PIXI.Sprite;
 
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
 let Container = PIXI.Container;
 
 let app = new Application({
@@ -66,6 +68,9 @@ PIXI.loader.load(setup);
 
 onStartLevel.subscribe(x => switchLevel(app, x.toJS().level));
 
+
+onReturnToMenu.subscribe(x => switchLevelContainer(app, getContainerMenu()));
+
 /*
     DO STUFF
 */
@@ -79,7 +84,9 @@ function setup () {
     };
     let onion = getIngredientSprite(fakeIngredientData.name);
 
-    app.stage = getContainerMenu();
+    switchLevelContainer(app, getContainerMenu());
+    app.stage.width *= 4;
+    app.stage.height *= 4;
 
     state = play;
     app.ticker.add(delta => gameLoop(delta));

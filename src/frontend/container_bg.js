@@ -1,5 +1,8 @@
 import { getBgSprite } from './textures';
 
+import { gameStateStream } from './../GameStateStream';
+import { goToMenu } from './../GameState';
+
 // shorthands for PIXI var.
 let Container = PIXI.Container;
 
@@ -19,6 +22,11 @@ function getRockSprite () {
     let sp = getBgSprite("rock");
     sp.x = 100;
     sp.y = 100;
+    sp.interactive = true;
+    sp.cursor = true;
+    sp.on('click', x => {
+        gameStateStream.next(goToMenu);
+    });
     return sp;
 }
 

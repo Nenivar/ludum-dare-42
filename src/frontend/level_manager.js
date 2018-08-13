@@ -1,4 +1,5 @@
 import { getContainerLevel } from './container_level';
+import { getContainerMenu } from './container_menu';
 import levels from './../levels.json';
 
 import { onStartLevel } from './../GameStateStream';
@@ -24,14 +25,13 @@ let currentLevel;
 } */
 
 export function switchLevel (app, jsonData) {
-    currentLevel = getContainerLevel(jsonData);
-    app.stage = currentLevel;
+    switchLevelContainer(app, getContainerLevel(jsonData));
 }
 
-export function switchLevelByContainer (container) {
-    Application.stage = container;
-    //currentLevel = container;
-    //Application.stage = currentLevel;
+export function switchLevelContainer (app, cont) {
+    app.stage.removeChild(getCurrentLevel());
+    currentLevel = cont;
+    app.stage.addChild(currentLevel);
 }
 
 export function getCurrentLevel () {
